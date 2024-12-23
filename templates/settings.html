@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Page </title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+  
+
+  <style>
+    
+    .settings-container {
+        width: 50%;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: transparent;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      .setting-title {
+        margin-bottom: 30px;    
+        color: white;
+        font-size: 50px;
+        text-align: center;
+        margin-top: 20px;
+        
+      }
+
+      .setting-division{
+        margin-top: 3%;
+        height: 1px;
+        border-color: white;
+      }
+
+      .setting-section{
+        margin-bottom: 30px;
+        margin-left: 4%;
+        
+      }
+
+      .setting-input{
+        margin-top: 20px;
+        outline: none;
+        border: none;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      select {
+        width: 95%;
+        padding: 10px;
+        margin-bottom: 10px;
+        /* border: 1px solid #ddd; */
+        border-radius: 5px;
+        outline: none;
+        border: none;
+      }
+      input[type="file"] {
+        margin-bottom: 10px;
+        padding: 3px;
+        background-color: transparent;
+      }
+      .toggle {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+      }
+      .toggle input[type="checkbox"] {
+        margin-right: 10px;
+      }
+      .save-button {
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 10px;
+      }
+      .save-button:hover {
+        background-color: #218838;
+      }
+
+
+      .user-manage-content{
+        margin-bottom: 30px;
+      }
+
+      .active-user-buttons{
+        margin-left:2% ;
+        padding: 8px;
+        border-radius: 2px;
+        outline: none;
+        border: none;
+      }
+
+      .setting-table{
+        padding: 10PX;
+        
+      }
+
+      .set-label{
+        margin-top: 30px;
+        font-size: 18px;
+      }
+
+      .dp-acc-action{
+        font-size:18px;
+        margin-top: 30px;
+      }
+
+      .del-button{
+        padding: 10px 20px;
+        background-color: red;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 10px;
+      }
+
+      .del-button:hover {
+        background-color: rgba(156, 15, 15, 0.886);
+      }
+
+      .final-save {
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 10px;
+        margin-left: 4%;
+        margin-bottom: 1%;
+      }
+      .final-save:hover {
+        background-color: #218838;
+      }
+
+
+  </style>
+  
+</head>
+
+<body>
+
+<div class="settings-container glass">
+
+
+  <div class="setting-section">
+    <!-- general setting -->
+    <p class="setting-title">General Settings</p>
+
+    <div class="setting-input">   
+      <label  for="company-name">Company Name:</label>
+      <input type="text" id="company-name" placeholder="Enter your company name">
+    </div>
+    
+    <div class="setting-input">
+      <label for="logo-upload">Logo Upload:</label>
+      <input type="file" id="logo-upload">
+    </div>    
+
+    <div class="setting-input">
+      <label for="business-email">Business Email:</label>
+      <input type="email" id="business-email" placeholder="Enter your business email">
+    </div>
+
+    <div class="setting-input">
+      <label for="contact-number">Contact Number:</label>
+      <input type="text" id="contact-number" placeholder="Enter contact number">
+    </div>
+
+    <div class="setting-input">
+      <label for="time-zone">Time Zone:</label>
+      <select id="time-zone">
+        <option value="UTC">UTC</option>
+        <option value="PST">Pacific Standard Time (PST)</option>
+        <option value="EST">Eastern Standard Time (EST)</option>
+      </select>
+    </div>
+
+
+    <div class="setting-input">
+      <label for="language">Language:</label>
+      <select id="language">
+        <option value="en">English</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+      </select>
+    </div>
+  </div>
+
+  <hr width="100%" class="setting-division" >
+
+  <!-- user management -->
+
+  <div class="setting-section">
+      
+    <p class="setting-title">User Management</p>
+
+
+    <div class="user-manage-content">
+      <label for="new-user-email">Invite New Users:</label>
+      <input type="email" id="new-user-email" placeholder="Enter user email">
+      <button class="save-button" onclick="inviteUser()">Send Invite</button>
+    </div>
+
+    <div class="user-manage-content">
+      <label for="mamanage permissions">Manage Roles and Permissions</label>
+      <select>
+        <option value="admin">Admin</option>
+        <option value="manager">Manager</option>
+        <option value="viewer">Viewer</option>
+      </select>
+    </div>
+
+    <div class="user-manage-content">
+      <label for=" User-manage-content">Active Users</label>
+      <!-- John Doe (Admin) <button class="active-user-buttons">Edit</button> <button class="active-user-buttons">Remove</button> -->
+      <table cellspacing = "10px">
+        <tr class="setting-table">
+          <td ><li>John Doe(Admin)</li></td>
+          <td><button class="active-user-buttons">Edit</button></td>
+          <td><button class="active-user-buttons">Remove</button></td>
+        </tr>
+     
+        <!-- Jane Smith (Manager) <button class="active-user-buttons">Edit</button> <button class="active-user-buttons">Remove</button> -->
+          
+        <tr class="setting-table">
+          <td><li>Jane Smith(MAnager)</li></td>
+          <td><button class="active-user-buttons">Edit</button></td>
+          <td><button class="active-user-buttons">Remove</button></td>
+        </tr>
+      </table>
+        
+      <!-- Dynamically list users here --> 
+    </div>
+  </div>
+
+  <hr width="100%" class="setting-division" >
+
+
+
+
+
+
+  <!-- Notifications & Alerts -->
+  <div class="setting-section">
+    <p class="setting-title">Notifications & Alerts</p>
+    <div class="toggle">
+      <input type="checkbox" id="email-notifications" checked>
+      <label for="email-notifications">Email Notifcations</label>
+    </div>
+    <div class="toggle">
+      <input type="checkbox" id="sms-notifications">
+      <label for="sms-notifications">SMS Notifications</label>
+    </div>
+    <div class="toggle">
+      <input type="checkbox" id="push-notifications">
+      <label for="push-notifications">Push Notifications</label>
+    </div>
+  </div>
+
+  <hr width="100%" class="setting-division" >
+
+
+
+
+
+
+  <!-- Data & Privacy -->
+  <div class="setting-section">
+    <p class="setting-title">Data & Privacy</p>
+
+    <label class="set-label" for="data-export">Export Data:</label>
+    <button class="save-button">Export as CSV</button>
+
+    <label class="set-label" for="data-import">Import Data:</label>
+    <input type="file" id="data-import">
+
+    <label class="set-label" for="data-retention">Data Retention Settings:</label>
+    <select id="data-retention">
+      <option value="1-year">1 Year</option>
+      <option value="2-years">2 Years</option>
+      <option value="5-years">5 Years</option>
+    </select>
+    
+    <h3 class="dp-acc-action">Account Actions</h3>
+    <button class="del-button" onclick="deleteAccount()">Delete Account</button>
+  </div>
+
+  <hr width="100%" class="setting-division" >
+
+
+
+
+
+
+
+  <!-- Security Settings -->
+  <div class="setting-section">
+    <p class="setting-title">Security Settings</p>
+
+    <label class="set-label" for="change-password">Change Password:</label>
+    <input type="password" id="change-password" placeholder="Enter new password">
+
+    <div class="toggle">
+      <input type="checkbox" id="two-factor-auth">
+      <label for="two-factor-auth">Two-Factor Authentication (2FA)</label>
+    </div>
+
+    <label class="set-label" for="session-timeout">Session Timeout:</label>
+    <select id="session-timeout">
+      <option value="5-min">5 Minutes</option>
+      <option value="15-min">15 Minutes</option>
+      <option value="30-min">30 Minutes</option>
+    </select>
+  </div>
+
+  <!-- Save Changes Button -->
+  <button class="final-save" onclick="saveChanges()">Save Changes</button>
+
+</div>
+
+<script>
+  function inviteUser() {
+    let email = document.getElementById('new-user-email').value;
+    if (email) {
+      alert('Invitation sent to ' + email);
+    } else {
+      alert('Please enter a valid email');
+    }
+  }
+
+  function deleteAccount() {
+    let confirmation = confirm('Are you sure you want to delete your account? This action cannot be undone.');
+    if (confirmation) {
+      alert('Account deleted');
+      // Add your account deletion logic here
+    }
+  }
+
+  function saveChanges() {
+    alert('Settings saved successfully!');
+    // Add logic to save the settings here
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login">
+        <div class="login_title">
+            <center>
+            <p>Login</p>
+
+            <p class="signup">
+                Don't have a account? <a class="signup-link" href="{{ url_for('signup') }}">signup</a> 
+            </p>
+            </center>
+        </div>
+
+            <div class="login-content glass">
+
+
+                <form action="/login" method="post">
+                    <br>
+                    <label for="username">Username</label>
+                    <br>
+                    <input type="text" id="username" name="username" placeholder="  Username " required>
+                    <br>
+                    <br>
+                    <label for="password">Password</label>
+                    <br>
+                    <div class="password-input-box">
+                    <input type="password" id="password" name="password" placeholder="  Your Password"  required>
+                    <br>
+                    <br>
+                    <button class="submit-btn">
+                        Login
+                    </button>
+                </div> 
+                </form>
+                <p class="login-other">or login with</p> 
+                <hr width="85%" height= "1px">
+                <div class="other-login-content">
+                    <div class="google">
+                        <a href="{{ url_for('google.login') }}"><img src="https://img.icons8.com/?size=100&id=16316&format=png&color=FFFFFF" height="30px" width="30px"></a>
+                    </div>
+                    <div class="facebook">
+                        <a href="{{ url_for('facebook.login') }}"><img src="https://img.icons8.com/?size=100&id=16165&format=png&color=FFFFFF" height="30px" width="30px"></a>
+                    </div> 
+                </div>
+            </div>
+    </div>
+    <script></script>
+</body>
+</html>

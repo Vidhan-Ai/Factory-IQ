@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Insights Dashboard</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='customer-insight.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-container glass">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" />
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('production') }}">Production</a></li>
+                    <li><a href="{{ url_for('supply') }}">Supply Chain</a></li>
+                    <li><a href="#">Customer Insights</a></li>
+                    <li><a href="#">Reports</a></li>
+                </ul>
+                <!-- Dropdown Menu -->
+                <div class="dropdown">
+                    <button class="profile-btn" onclick="toggleDropdown()">
+                        {% if profile %}
+                        <img src="{{ profile }}" class="profile-image" alt="P">
+                        {% else %}
+                        <p>No profile picture uploaded.</p>
+                        {% endif %}
+                    </button>
+                    <div id="dropdown-content" class="dropdown-content glass">
+                        <a href="{{ url_for('profile') }}">profile</a>
+                        <a href="#">Settings</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+        <h1 class="title">Customer Insights</h1>
+
+        <!-- Section 1: Purchase Behavior Trends -->
+        <section id="section-title">
+            <p class="graphs-headings">Purchase Behavior Trends</p>
+            <div class="graph">
+            <div class="widget">
+                <h3>Monthly/Seasonal Demand</h3>
+                <div class="glass-graph" id="demandTrendChart"></div>
+            </div>
+            <div class="widget">
+                <h3>Product Categories Purchased</h3>
+               <div class="glass-graph" id="productCategoryChart"></div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Customer Feedback & Sentiment Analysis -->
+        <section id="section-title">
+            <p class="graphs-headings">Customer Feedback & Sentiment Analysis</p>
+            <div class="graph">
+            <div class="widget">
+                <h3>Top Customer Complaints</h3>
+                <div class="glass-graph" id="complaintsWordCloud"></div>
+            </div>
+            <div class="widget">
+                <h3>Feedback Trends Over Time</h3>
+                <div class="glass-graph" id="feedbackTrendsChart"></div>
+            </div>
+        </div>
+        </section>
+
+
+
+        <!-- Section 3: Product Preferences & Popularity -->
+        <section id="section-title">
+            <p class="graphs-headings">Product Preferences & Popularity</p>
+            <div class="graph">
+            <div class="widget">
+                <h3>Top-Selling Products</h3>
+                <div class="glass-graph" id="topSellingProductsChart"></div>
+            </div>
+            <div class="widget">
+                <h3>Product Sales by Region</h3>
+                <div class="glass-graph" id="salesByRegionChart"></div>
+            </div>
+            </div>
+            <center>
+            <div class="widget2">
+                <h3>Product Return Rate</h3>
+                <div class="glass-graph" id="returnRateChart"></div>
+            </div>
+            </center>
+        </section>
+
+    </main>
+
+
+    
+    <script src="{{url_for('static',filename = 'customer-insight.js')}}"></script>
+
+
+    <footer class="footer">
+        <div class="footer-container glass">
+          <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p>Email: info@example.com</p>
+            <p>Phone: +123 456 7890</p>
+          </div>
+          <div class="footer-section">
+            <h3>Important Links</h3>
+            <ul>
+              <li><a href="{{ url_for('about') }}">About Us</a></li>
+              <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>
+              <li><a href="{{ url_for('terms') }}">Terms of Service</a></li>
+              <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Follow Us</h3>
+            <ul>
+              <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+              <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+              <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+              <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 FactoryIQ. All Rights Reserved.</p>
+        </div>
+      </footer>
+
+    {% if alert_message %}
+    <script>
+        showAlert("{{ alert_message }}");
+    </script>
+    {% endif %}
+    
+    <script>
+        function toggleDropdown() {
+            var dropdown = document.getElementById("dropdown-content");
+            dropdown.classList.toggle("show");
+        }
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile-btn') && !event.target.matches('.profile-image')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

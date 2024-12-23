@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='terms.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+          display: flex;
+          justify-content: center; /* Center the cards horizontally */
+          align-items: center;
+          height: 100vh;
+          margin: 40px;
+          font-family: 'Roboto Condensed', sans-serif;
+          background-color: #f0f0f0;
+          flex-direction: column; /* Align cards in a column */
+      }
+      .welcome2-section {
+          margin: auto;
+          text-align: center;
+          margin-bottom: 10%;
+          padding: 0 15px;
+      }
+
+      .welcome2-section h1 {
+          margin-top: 25%;
+          font-size: 3rem;
+          margin-bottom: 10px;
+      }
+      .card-main-container {
+          display: flex; /* Align cards horizontally */
+          justify-content: center; /* Equal spacing between cards */
+          width: 1300px; /* Full width for the container */
+          /* max-width: 3000px; Max width for the container */
+          margin-bottom: 20px;
+      }
+
+      .card-main {
+          position: relative;
+          width: 100%; /* Set width of each card to 100% */
+          /* max-width: 300px; Maximum width for each card */
+          backdrop-filter: blur(10px);
+          border-radius: 15px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          text-align: center;
+          padding-top: 100px;
+          min-height: 400px; /* Set a minimum height for the card */
+          margin: 0 10px;
+          margin-left: 30px; /* Add margin for spacing between cards */
+          margin-right: 20px;
+      }
+
+      .profile-photo {
+          position: absolute;
+          top: -70px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+          border: 5px solid white;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-main-content {
+          padding: 30px; /* Add padding for content */
+      }
+
+      .footer-bottom {
+          text-align: center;
+          margin-top: 20px;
+      }
+
+      .card-main button {  
+          margin-top: 100px; /* Spacing above the button */
+          padding: 10px 15px;
+          border: none;
+          border-radius: 8px;
+          background-color: #9834d6; /* Button background color */
+          color: white;
+          cursor: pointer;
+      }
+
+      .card-main button:hover {
+          background-color: #8413b8; /* Darker shade on hover */
+          
+      }
+      .card1 {
+    
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px) saturate(150%); 
+          -webkit-backdrop-filter: blur(10px) saturate(150%);
+          border-radius: 15px;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+          padding: 20px;
+          border: 1px solid rgba(255, 255, 255, 0.3); 
+          width: 80%; 
+          
+          margin: 0 auto;
+          color: #fff;
+          margin-left: 100px;
+      }
+      .about-me{
+
+         height: 100px;
+      }
+  </style>
+
+</head>
+
+<header>
+  <nav class="navbar">
+      <div class="navbar-container glass">
+          <div class="logo">
+              <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" />
+          </div>
+          <ul class="nav-links">
+              <li><a href="{{ url_for('index') }}">Home</a></li>
+              <li><a href="{{ url_for('production') }}">Production</a></li>
+              <li><a href="{{ url_for('supply') }}">Supply Chain</a></li>
+              <li><a href="{{ url_for('customer') }}">Customer Insights</a></li>
+              <li><a href="#">Reports</a></li>
+          </ul>
+          <!-- Dropdown Menu -->
+          <div class="dropdown">
+              <button class="profile-btn" onclick="toggleDropdown()">
+                  {% if profile %}
+                  <img src="{{ profile }}" class="profile-image" alt="P">
+                  {% else %}
+                  <p>No profile picture uploaded.</p>
+                  {% endif %}
+              </button>
+              <div id="dropdown-content" class="dropdown-content glass">
+                  <a href="{{ url_for('profile') }}">profile</a>
+                  <a href="#">Settings</a>
+                  <a href="{{ url_for('logout') }}">Logout</a>
+              </div>
+          </div>
+      </div>
+  </nav>
+</header>
+<main>
+    <section class="welcome2-section">
+        <h1>About Us</h1>
+    </section>
+
+    <div class="card-main-container">
+      <!-- Card 1 -->
+      <div class="card-main glass">
+          <!-- Profile Photo -->
+          <img src="https://media.licdn.com/dms/image/v2/D5635AQHi10rD_M8O9A/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1704786598997?e=1733335200&v=beta&t=u10Bsni1dFg12jaK_VbJWcy4yUbFkOb1EzblQ2uhkx4" alt="Profile Photo" class="profile-photo" />
+          <div class="card-main-content">
+              <h3>Vidhan Singh Rathore</h3>
+              <p class="about-me">Persuing Bachelor Of Technology in Artificial Intelligence and Machine Learning from Galgotias College Of Engineering and Technology</p>
+              <button onclick="window.open('https://www.linkedin.com/in/vidhan-ai', '_blank')">View Profile</button>
+          </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card-main glass">
+          <!-- Profile Photo -->
+          <img src="https://media.licdn.com/dms/image/v2/D5603AQHFZg55E7n1QA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1714083120033?e=1733961600&v=beta&t=eejj8hWXXPAz_1_Z3tZ_C47dEBOVkkPZGufU-RtaTzA" alt="Profile Photo" class="profile-photo" />
+          <div class="card-main-content">
+              <h3>Vinamra Nigam</h3>
+              <p class="about-me" >Persuing Bachelor Of Technology in Information Technology from Galgotias College Of Engineering and Technolog</p>
+              <button onclick="window.open('https://www.linkedin.com/in/vinamra-nigam-541283218/', '_blank')">View Profile</button>
+          </div>
+      </div>
+  </div>
+
+
+        <footer class="footer">
+          <div class="footer-container glass">
+            <div class="footer-section">
+              <h3>Contact Us</h3>
+              <p>Email: info@example.com</p>
+              <p>Phone: +123 456 7890</p>
+            </div>
+            <div class="footer-section">
+              <h3>Important Links</h3>
+              <ul>
+                <li><a href="{{ url_for('about') }}">About Us</a></li>
+                <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>
+                <li><a href="{{ url_for('terms') }}">Terms of Service</a></li>
+                <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+              </ul>
+            </div>
+            <div class="footer-section">
+              <h3>Follow Us</h3>
+              <ul>
+                <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+                <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+                <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+                <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <p>&copy; 2024 FactoryIQ. All Rights Reserved.</p>
+          </div>
+        </footer>
+  
+      {% if alert_message %}
+      <script>
+          showAlert("{{ alert_message }}");
+      </script>
+      {% endif %}
+      
+      <script>
+          function toggleDropdown() {
+              var dropdown = document.getElementById("dropdown-content");
+              dropdown.classList.toggle("show");
+          }
+  
+          // Close the dropdown if the user clicks outside of it
+          window.onclick = function(event) {
+              if (!event.target.matches('.profile-btn') && !event.target.matches('.profile-image')) {
+                  var dropdowns = document.getElementsByClassName("dropdown-content");
+                  for (var i = 0; i < dropdowns.length; i++) {
+                      var openDropdown = dropdowns[i];
+                      if (openDropdown.classList.contains('show')) {
+                          openDropdown.classList.remove('show');
+                      }
+                  }
+              }
+          }
+      </script>
+    </body>
+</main>
+</html>

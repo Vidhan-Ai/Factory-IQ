@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signup</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='signup.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet" />
+    
+
+</head>
+<style>
+    #cropper-container {
+        width: 200px;
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    #image {
+        max-width: 100%;
+        max-height: 100%;
+    }
+</style>
+<body>
+    <div class="signup-all">
+    <div class="signup-2">
+        <div class="signup_title">
+            <center>
+            <p>Signup</p>
+
+            <p class="signup">
+                already have a account ? <a class="login-link" href="{{ url_for('login') }}">login here</a> 
+            </p>
+            </center>
+        </div>
+
+            <div class="signup-content glass">
+
+
+                <form action="/signup" method="post" enctype="multipart/form-data">
+                    <br>
+                    <label for="username">First Name</label>
+                    <br>
+                    <input class="input1" type="text" id="Firstn" name="Firstn" placeholder="First Name" required>
+                    <br>
+                    <br>
+                    <label for="username">Last Name</label>
+                    <br>
+                    <input class="input1" type="text" id="Lastn" name="Lastn" placeholder="Last Name" required>
+                    <br>
+                    <br>
+                    <label for="username">Username</label>
+                    <br>
+                    <input class="input1" type="text" id="username" name="username" placeholder="Username" required>
+                    <br>
+                    <br>
+                    <label for="password">Password</label>
+                    <br>
+                    <div class="password-input-box">
+                    <input class="input2" type="password" id="password" name="password" placeholder="Password"  required>
+                    <br>
+                    <br>
+                    <label for="profile_photo">Profile Photo</label>
+                    <br>
+                    <input class="input3" type="file" id="profile" name="profile" accept="image/*" required>
+                    <br>
+                    <div id="cropper-container" style="display:none;">
+                        <img id="image" src="" alt="Image for cropping">
+                    </div>
+                    <button type="button" id="crop-btn" style="display:none;">Crop Image</button>
+                    <button class="submit-btn">Signup</button>
+                </div>
+                
+                </form>
+                <p class="login-other">or create account with</p> 
+                <hr width="85%" height= "1px">
+                
+
+                <div class="other-login-content">
+                    <div class="google">
+                        <a href="{{ url_for('google.login') }}"><img src="https://img.icons8.com/?size=100&id=16316&format=png&color=FFFFFF" height="30px" width="30px"></a>
+                    </div>
+                    <div class="facebook">
+                        <a href="{{ url_for('facebook.login') }}"><img src="https://img.icons8.com/?size=100&id=16165&format=png&color=FFFFFF" height="30px" width="30px"></a>
+                    </div>
+                </div>
+            </div>        
+    </div>   
+    </div> 
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+<script>
+    // Initialize Cropper.js when a file is selected
+    const fileInput = document.getElementById('profile');
+    const cropperContainer = document.getElementById('cropper-container');
+    const imageElement = document.getElementById('image');
+    const cropButton = document.getElementById('crop-btn');
+    let cropper;
+
+    fileInput.addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (file && file.type.startsWith('image')) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                imageElement.src = event.target.result;
+                cropperContainer.style.display = 'block';
+                cropButton.style.display = 'inline-block';
+
+                if (cropper) {
+                    cropper.destroy();
+                }
+
+                // Initialize Cropper.js on the new image
+                cropper = new Cropper(imageElement, {
+                    aspectRatio: 1, // Set the aspect ratio to 1:1 for a square crop
+                    viewMode: 1,
+                    autoCropArea: 1, // Ensure the crop area fills the container
+                    responsive: true,
+                    checkOrientation: false,
+                    ready() {
+                        // You can customize the initial crop area if needed
+                    },
+                });
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert('Please upload a valid image file.');
+        }
+    });
+
+    // Crop the image when the "Crop Image" button is clicked
+    cropButton.addEventListener('click', function () {
+        const croppedCanvas = cropper.getCroppedCanvas({
+            width: 200, // Desired width of the cropped image (matches cropper container size)
+            height: 200, // Desired height of the cropped image
+        });
+
+        // Convert the canvas to a base64 image
+        const croppedImage = croppedCanvas.toDataURL('image/png');
+
+        // Optionally, you can display the cropped image
+        // For now, set the cropped image as the source for the input
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'profile'; // Use the same name as the file input
+        input.value = croppedImage;
+        document.forms[0].appendChild(input); // Append it to the form
+
+        // Hide the cropper container and submit the form (or allow user to submit)
+        cropperContainer.style.display = 'none';
+        cropButton.style.display = 'none';
+        alert('Image cropped successfully!');
+    });
+</script>
+</html>

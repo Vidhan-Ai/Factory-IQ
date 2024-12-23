@@ -1,0 +1,457 @@
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-image: url(bg.png);
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed; 
+    image-rendering: auto;
+    color: white;
+}
+
+/* Navbar */
+.navbar {
+    position: fixed; 
+    top: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 1000; 
+}
+
+/* Navbar Container */
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 55px;
+    max-width: 1200px;
+    padding: 10px 20px;
+    margin: 0 30px; 
+    align-items: center;
+    border-radius: 15px; 
+}
+
+/* Logo */
+.logo img {
+    border: 2px solid rgba(255, 255, 255, 0.61);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+/* Navigation links */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+/* Navbar Link Styles */
+.navbar a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease, color 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease; 
+    border-radius: 5px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+/* Hover Effect */
+.navbar a:hover {
+    background-color: rgb(255, 255, 255);
+    color: #000; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+    transform: translateY(-2px); 
+    padding: 15px 25px; 
+}
+/* Dropdown Button */
+.profile-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Dropdown Menu Content */
+.dropdown-content {
+    display: none; 
+    position: absolute;
+    border-radius: 4%;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    opacity: 0; 
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease; 
+}
+
+/* Links in the dropdown */
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    opacity: 0;  /* Hidden initially for staggered appearance */
+    transform: translateY(20px);  /* Starts with a downward position */
+    transition: opacity 0.3s ease, transform 0.3s ease;  
+}
+
+/* When the dropdown is shown */
+.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(8px);  /* Translate slightly downward on open */
+}
+
+/* Staggered animation for each link in the dropdown */
+.show a {
+    opacity: 1;
+    transform: translateY(0);  /* Reset to normal position */
+}
+
+/* Hover effect on the dropdown links */
+.dropdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Change background on hover */
+}
+
+/* Profile Section */
+.profile-image {
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    position: relative; /* Position relative to position dropdown */
+}
+
+/* Profile icon */
+.profile-btn {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;  
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* Show dropdown on hover */
+.profile-icon:hover + .dropdown-content, .dropdown-content:hover {
+    display: block;
+    opacity: 1;
+}
+
+/* Ensure dropdown is hidden when not hovered */
+.profile-icon:not(:hover) + .dropdown-content {
+    display: none;
+}
+
+
+/* Welcome Section */
+.welcome-section {
+    text-align: center;
+    margin-top: 10%;
+    padding: 0 15px;
+}
+
+.welcome-section h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.welcome-section p {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+
+/* Cards Section */
+.cards-section {
+    display: flex;
+    align-items: center;
+    padding: 0 50px;
+    text-align: center;
+    width: 100%;
+    
+    
+}
+
+
+/* Card Styles */
+.card {
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;  
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 400;
+    max-width: 500px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    text-align: center;
+}
+
+/* Card Title */
+.card h3 {
+    font-size: 20px;
+    font-weight: 700; 
+    color: #ffffff; 
+    margin-bottom: 15px; 
+    text-align: center;
+}
+
+/* Card Text */
+.card p {
+    font-size: 16px;
+    color: #ffffff; 
+    line-height: 1.6; 
+    margin-bottom: 20px; 
+	text-align: center;
+}
+
+/* Button inside card */
+.card-button {
+    display: flex; 
+    justify-content: center; 
+ 
+    background-color: #6a33d6; /* Button background color */
+    color: rgb(0, 0, 0);
+    padding: 15px; 
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    min-width: 250px; 
+    margin-top: 10px; 
+
+}
+
+/* Button hover effect */
+.card-button:hover {
+    background-color: rgb(255, 255, 255);
+    color: #000000; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+    transform: translateY(-2px); 
+    padding: 15px 25px; 
+}
+
+.card h2 {
+    margin-bottom: 20px;
+}
+
+.card p {
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+}
+
+/* Glass effect */
+.glass {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+}
+
+.glass-graph {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    max-width: fit-content;
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    overflow: hidden;
+}
+
+.glass2{
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.786), #fefefe8a);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border:1px solid rgba(0, 0, 0, 0.273);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.41);
+}
+/* Weather Section */
+.weather-section {
+    margin: 20px auto;
+    margin-top: 5%;
+    padding: 20px;
+    text-align: center;
+    max-width: 60%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    /* border: 1px solid rgba(255, 255, 255, 0.3); */
+}
+
+.weather-section h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.weather-section img {
+    width: 50px;
+    height: 50px;
+    margin-top: 10px;
+}
+
+/* Content */
+.content {
+    align-self: center;
+    border-radius: 10px;
+    padding: 20px;
+    padding-left: 3%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    max-width: 75%; 
+    margin: auto;
+}
+
+/* Footer styles */
+.footer {
+    color: #fff;
+    padding: 30px 0;
+    text-align: center;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    text-align: left;
+    flex: 1;
+    margin: 5%;
+    min-width: 200px;
+}
+
+.footer-section h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.footer-section p, .footer-section ul, .footer-section li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.footer-section ul li a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+    color: #fff;
+}
+
+.footer-section ul li .active {
+        color: #ffffff;
+}
+
+.footer-bottom {
+    margin-top: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar-container {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .cards-section {
+        flex-direction: column;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .card {
+        max-width: 90%; /* Adjust width for mobile */
+        margin: 10px 0; /* Add margin for spacing */
+    }
+
+    .welcome-section h1 {
+        font-size: 2rem; /* Smaller font size */
+    }
+
+    .weather-section {
+        max-width: 90%; /* Adjust width for mobile */
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .navbar-container {
+        flex-direction: row;
+    }
+
+    .cards-section {
+        flex-wrap: wrap; /* Allow wrapping on tablets */
+    }
+
+    .card {
+        max-width: 45%; /* Two cards per row */
+        margin: 10px; /* Margin for spacing */
+    }
+
+    .welcome-section h1 {
+        font-size: 2.5rem; /* Smaller font size for tablet */
+    }
+}
+
+@media (min-width: 1025px) {
+    .navbar-container {
+        flex-direction: row;
+    }
+
+    .cards-section {
+        justify-content: space-around;
+    }
+
+    .card {
+        max-width: 30%; /* Three cards per row */
+    }
+}
+
+.graph {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    margin: auto;
+    margin-left: 14.5%;
+    max-width: 50%;
+    justify-content: space-around;
+}

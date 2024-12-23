@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        // Function to show alert
+        function showAlert(message) {
+            alert(message);
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-container glass">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" />
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('production') }}">Production</a></li>
+                    <li><a href="{{ url_for('supply') }}">Supply Chain</a></li>
+                    <li><a href="{{ url_for('customer') }}">Customer Insights</a></li>
+                    <li><a href="#">Reports</a></li>
+                </ul>
+                <!-- Dropdown Menu -->
+                <div class="dropdown">
+                    <button class="profile-btn" onclick="toggleDropdown()">
+                        {% if profile %}
+                        <img src="{{ profile }}" class="profile-image" alt="P">
+                        {% else %}
+                        <p>No profile picture uploaded.</p>
+                        {% endif %}
+                    </button>
+                    <div id="dropdown-content" class="dropdown-content">
+                        <a href="{{ url_for('profile') }}">profile</a>
+                        <a href="#">Settings</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    {% if alert_message %}
+    <script>
+        showAlert("{{ alert_message }}");
+    </script>
+    {% endif %}
+    
+    <script>
+        function toggleDropdown() {
+            var dropdown = document.getElementById("dropdown-content");
+            dropdown.classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile-btn') && !event.target.matches('.profile-image')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

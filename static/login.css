@@ -1,0 +1,109 @@
+.login{
+    display: block;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8%;
+}
+
+.signup-2{
+    display: block;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+}
+
+.signup-link{
+    text-decoration: none;
+    color: white
+}
+
+
+.signup-link:hover{
+    text-decoration: underline;
+}
+
+
+.login_title{
+    color: white;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 60px;
+}
+
+
+.signup_title{
+    color: white;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 60px;
+}
+
+
+.signup{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.login-content{
+    padding: 15px;
+    margin: auto;
+    margin-top: 20px;   
+    width: 400px;
+    height: 365px;
+}
+
+form{
+    margin-left: 9%;
+}
+
+label{
+   
+    font-size: 15px;
+}
+
+input{
+    padding-left: 5px;
+    margin-top: 10px;
+    width: 90%;
+    height: 40px;
+    border-color: white;
+    border-radius: 15px;
+}
+
+
+
+
+
+button{
+    padding: none;
+    color: white;
+    width: 90%;
+    height: 40px;
+    border:1px  solid rgb(119, 44, 156);
+    border-radius:15px;
+    background-color:rgb(153, 69, 195);
+    font-size: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.login-other{
+    margin-left: 9%;
+    margin-top: 20px;
+
+}
+
+hr{
+    margin-left: 7%;
+    margin-top: 5px;
+    color:white
+}
+
+
+
+.other-login-content{
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    margin: auto;
+    margin-top: 0 px;  
+    margin-left: 5%;
+}

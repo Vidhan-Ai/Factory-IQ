@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factory Performance Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='terms.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        .cards-section {
+            display: flex;
+            flex-direction: column; 
+            margin-top: 20px;
+            
+        }
+
+        .card {
+            /* Glass effect styles */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px) saturate(150%);
+            -webkit-backdrop-filter: blur(10px) saturate(150%);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            width: calc(100% - 40px); 
+            margin: 10px auto; 
+            color: #fff;
+            text-align: center; 
+            cursor: pointer; 
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+
+
+        @media (max-width: 768px) {
+            .card {
+                width: calc(100% - 40px); 
+            }
+        }
+
+        .answer {
+            margin-top: 10px; 
+            color: #ddd; 
+            text-align: center; 
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-container glass">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" />
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('production') }}">Production</a></li>
+                    <li><a href="{{ url_for('supply') }}">Supply Chain</a></li>
+                    <li><a href="{{ url_for('customer') }}">Customer Insights</a></li>
+                    <li><a href="#">Reports</a></li>
+                </ul>
+                <!-- Dropdown Menu -->
+                <div class="dropdown">
+                    <button class="profile-btn" onclick="toggleDropdown()">
+                        {% if profile %}
+                        <img src="{{ profile }}" class="profile-image" alt="P">
+                        {% else %}
+                        <p>No profile picture uploaded.</p>
+                        {% endif %}
+                    </button>
+                    <div id="dropdown-content" class="dropdown-content glass">
+                        <a href="{{ url_for('profile') }}">profile</a>
+                        <a href="#">Settings</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="welcome-section">
+            <h1>Frequently Asked Questions</h1>
+        </section>
+
+        <section class="cards-section">
+            <div class="card glass" onclick="toggleAnswer('answer1')">
+                <h2>What is Factory IQ?</h2>
+                <p id="answer1" class="answer hidden">
+                    Factory IQ is a platform that provides AI-powered manufacturing intelligence and optimization services.
+                </p>
+            </div>
+            <div class="card glass" onclick="toggleAnswer('answer2')">
+                <h2>How does it help in production?</h2>
+                <p id="answer2" class="answer hidden">
+                    It helps optimize manufacturing processes, reduce downtime, and improve production efficiency.
+                </p>
+            </div>
+            <div class="card glass" onclick="toggleAnswer('answer3')">
+                <h2>What data does it analyze?</h2>
+                <p id="answer3" class="answer hidden">
+                    It analyzes data related to machine performance, production rates, and supply chain operations.
+                </p>
+            </div>
+            <div class="card glass" onclick="toggleAnswer('answer4')">
+                <h2>Is there a mobile app?</h2>
+                <p id="answer4" class="answer hidden">
+                    Yes, Factory IQ offers a mobile application for accessing insights on the go.
+                </p>
+            </div>
+            <div class="card glass" onclick="toggleAnswer('answer5')">
+                <h2>How can I contact support?</h2>
+                <p id="answer5" class="answer hidden">
+                    You can contact support via email at support@factoryiq.com or through our contact form on the website.
+                </p>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="footer-container glass">
+          <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p>Email: info@example.com</p>
+            <p>Phone: +123 456 7890</p>
+          </div>
+          <div class="footer-section">
+            <h3>Important Links</h3>
+            <ul>
+              <li><a href="{{ url_for('about') }}">About Us</a></li>
+              <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>
+              <li><a href="{{ url_for('terms') }}">Terms of Service</a></li>
+              <li><a class="active">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Follow Us</h3>
+            <ul>
+              <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+              <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+              <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+              <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 FactoryIQ. All Rights Reserved.</p>
+        </div>
+      </footer>
+
+    {% if alert_message %}
+    <script>
+        showAlert("{{ alert_message }}");
+    </script>
+    {% endif %}
+    
+    <script>
+        function toggleDropdown() {
+            var dropdown = document.getElementById("dropdown-content");
+            dropdown.classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile-btn') && !event.target.matches('.profile-image')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+        function toggleAnswer(answerId) {
+            const answer = document.getElementById(answerId);
+            answer.classList.toggle('hidden');
+        }
+        let lastOpenedAnswerId = null; 
+
+        function toggleAnswer(answerId) {
+            const answer = document.getElementById(answerId);
+            
+            if (lastOpenedAnswerId && lastOpenedAnswerId !== answerId) {
+                document.getElementById(lastOpenedAnswerId).classList.add('hidden');
+            }
+            
+            answer.classList.toggle('hidden');
+
+           
+            lastOpenedAnswerId = answer.classList.contains('hidden') ? null : answerId;
+        }
+
+    </script>
+</body>
+</html>
+
+

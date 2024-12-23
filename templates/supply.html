@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>supply-chain</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='production.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+   <header>
+        <nav class="navbar">
+            <div class="navbar-container glass">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" />
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('production') }}">Production</a></li>
+                    <li><a href="{{ url_for('supply') }}">Supply Chain</a></li>
+                    <li><a href="{{ url_for('customer') }}">Customer Insights</a></li>
+                    <li><a href="#">Reports</a></li>
+                </ul>
+                <!-- Dropdown Menu -->
+                <div class="dropdown">
+                    <button class="profile-btn" onclick="toggleDropdown()">
+                        {% if profile %}
+                        <img src="{{ profile }}" class="profile-image" alt="P">
+                        {% else %}
+                        <p>No profile picture uploaded.</p>
+                        {% endif %}
+                    </button>
+                    <div id="dropdown-content" class="dropdown-content glass">
+                        <a href="{{ url_for('profile') }}">profile</a>
+                        <a href="#">Settings</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="main">
+        <center> <b><p class="heading">Supply Chain Performance Overview</h1></b></center>
+
+        <div class="widget">
+           <center> <h2 class="block-head">Inventory Levels Tracker</h2></center>
+            <div class="blocks glass">  
+                <div class="data">
+                    <p class="names" >Raw Material Remaining</p>
+                    <p class="units">2 days</p>    
+                </div>
+
+                <div class="data">
+                    <p class="names" >Recommendation</p>
+                    <p class="units">Re-order</p>
+                    
+                </div>
+
+            </div>   
+        </div>
+
+        
+        <div class="widget">
+            <center> <h2 class="block-head">Supplier On-Time Delivery Score</h2></center>
+            <div class="blocks glass"> 
+                <div class="data">
+                   <center> <p class="names" >On-time delivery rate</p> </center>
+                    <p class="units">95% for the last 30 days</p>    
+                </div>
+            </div>
+        </div>          
+        <div class="widget">
+            <center> <h2 class="block-head">Logistics Tracking & ETA</h2></center>
+            <div class="blocks glass">
+                <div class="data">
+                    <p class="names" >Shipment ID </p>
+                    <p class="units">14523</p>    
+                </div>
+ 
+                 <div class="data">
+                    <p class="names" >ETA</p>
+                    <p class="units">3 hrs</p>
+                </div>
+                <div class="data">
+                    <p class="names" >Journey Completed</p>
+                    <p class="units">80%</p>
+                </div>
+
+                <div class="track">
+                    <a href="google.com">
+                        <button class="track2 glass2" type="button">Click to Track </button>
+                    </a>
+                </div> 
+            </div>   
+        </div>
+        
+           
+        <div class="widget">
+            <center> <h2 class="block-head">Order Fulfillment Status</h2></center>
+ 
+            <div class="blocks-new glass">
+                <div class="blocks1">
+                    
+                    <p class="names">Order No.</p>
+                    <p class="names">Packaging</p>
+                    <p class="names">Dispatch</p>
+                </div>
+
+                <div class="data1"> 
+                    <p>7882</p>
+                    <p>Completed</p>
+                    <p>Ready</p>
+
+                </div>
+
+                <div class="data1"> 
+                    <p>7382</p>
+                    <p>Not Completed</p>
+                    <p>Nor Ready</p>
+
+                </div>
+
+                <div class="data1"> 
+                    <p>7344</p>
+                    <p>Completed</p>
+                    <p>Ready</p>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <footer class="footer">
+        <div class="footer-container glass">
+          <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p>Email: info@example.com</p>
+            <p>Phone: +123 456 7890</p>
+          </div>
+          <div class="footer-section">
+            <h3>Important Links</h3>
+            <ul>
+              <li><a href="{{ url_for('about') }}">About Us</a></li>
+              <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>
+              <li><a href="{{ url_for('terms') }}">Terms of Service</a></li>
+              <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Follow Us</h3>
+            <ul>
+              <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+              <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+              <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+              <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 FactoryIQ. All Rights Reserved.</p>
+        </div>
+    </footer>
+    {% if alert_message %}
+    <script>
+        showAlert("{{ alert_message }}");
+    </script>
+    {% endif %}
+    <script>
+        function toggleDropdown() {
+            var dropdown = document.getElementById("dropdown-content");
+            dropdown.classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile-btn') && !event.target.matches('.profile-image')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

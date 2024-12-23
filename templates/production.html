@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factory Performance Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='production.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+    <header>
+        <nav class="navbar">
+            <div class="navbar-container glass">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" />
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a class="active">Production</a></li>
+                    <li><a href="{{ url_for('supply') }}">Supply Chain</a></li>
+                    <li><a href="{{ url_for('customer') }}">Customer Insights</a></li>
+                    <li><a href="#">Reports</a></li>
+                </ul>
+                <!-- Dropdown Menu -->
+                <div class="dropdown">
+                    <button class="profile-btn" onclick="toggleDropdown()">
+                        {% if profile %}
+                        <img src="{{ profile }}" class="profile-image" alt="P">
+                        {% else %}
+                        <p>No profile picture uploaded.</p>
+                        {% endif %}
+                    </button>
+                    <div id="dropdown-content" class="dropdown-content glass">
+                        <a href="{{ url_for('profile') }}">profile</a>
+                        <a href="#">Settings</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+
+
+    <div class="main">
+        <center> <b><p class="heading">Production Status Overview</h1></b></center>
+
+        <!-- Real-Time Production Output Tracker -->
+        <div class="widget">
+           <center> <h2 class="block-head">Real-Time Production Output Tracker</h2></center>
+            <div class="blocks glass">  
+                <div class="data">
+                    <p class="names" >Shift Target</p>
+                    <p class="units">500</p>    
+                </div>
+
+                <div class="data">
+                    <p class="names" >Current Output</p>
+                    <p class="units">450</p>
+                    
+                </div>
+
+                <div class="data">
+                    <p class="names" >Target Achieved</p>
+                    <p class="units">90%</p>
+                    
+                </div>
+            </div>   
+        </div>
+
+        
+        <!-- Production Line Efficiency -->
+        <div class="widget">
+            <center> <h2 class="block-head">Production Line Efficiency</h2></center>
+            <div class="blocks glass">
+                <div class="data">
+                    <p class="names" >Efficiency</p>
+                    <p class="units">85%</p>    
+                </div>
+            </div>
+        </div>
+                
+
+
+        
+        <div class="widget">
+            <center> <h2 class="block-head">Defects Rate Monitor</h2></center>
+            <div class="blocks glass">
+                 <div class="data">
+                     <p class="names" >Defect Rate</p>
+                     <p class="units">2%</p>    
+                 </div>
+ 
+                 <div class="data">
+                     <p class="names" >Rework</p>
+                     <p class="units">10</p>
+                     
+                 </div>
+             </div>   
+         </div>
+        
+
+
+        <div class="widget">
+            <center> <h2 class="block-head">Production Bottleneck Alert</h2></center>
+            <div class="blocks glass">
+                <div class="data">
+                     <p class="names" >Bottleneck Detected in</p>
+                     <p class="units1">Packaging Station</p>    
+                </div>
+
+                <div class="data">
+                    <p class="names" >Result</p>
+                    <p class="units1">slowing down Line 1</p>
+                     
+                </div>
+
+                <div class="data">
+                    <p class="names" >Suggetion</p>
+                    <p class="units1">Adjust speed or reallocate resources</p>
+                     
+                </div>
+
+            </div>   
+        </div>
+
+    </div>
+
+
+
+    <footer class="footer">
+        <div class="footer-container glass">
+          <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p>Email: info@example.com</p>
+            <p>Phone: +123 456 7890</p>
+          </div>
+          <div class="footer-section">
+            <h3>Important Links</h3>
+            <ul>
+              <li><a href="{{ url_for('about') }}">About Us</a></li>
+              <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>
+              <li><a href="{{ url_for('terms') }}">Terms of Service</a></li>
+              <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Follow Us</h3>
+            <ul>
+              <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+              <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+              <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+              <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 FactoryIQ. All Rights Reserved.</p>
+        </div>
+      </footer>
+
+    {% if alert_message %}
+    <script>
+        showAlert("{{ alert_message }}");
+    </script>
+    {% endif %}
+    
+    <script>
+        function toggleDropdown() {
+            var dropdown = document.getElementById("dropdown-content");
+            dropdown.classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile-btn') && !event.target.matches('.profile-image')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+      
+</body>
+</html>

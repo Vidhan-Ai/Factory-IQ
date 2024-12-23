@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factory Performance Dashboard</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        window.onload = function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showError, showPosition);
+            } else {
+                document.getElementById("weather-info").innerHTML = "Geolocation is not supported by this browser.";
+            }
+        };
+
+        function showPosition(position) {
+            let latitude = position.coords.latitude;
+            let longitude = position.coords.longitude;
+
+            // Send the location to the Flask app
+            fetch('/get_weather', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    latitude: latitude,
+                    longitude: longitude
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update the weather section with data from Flask
+                let weatherInfo = `
+                    <h1>Weather in ${data.location}</h1>
+                    <p>Temperature: ${data.temperature} °C</p>
+                    <p>Condition: ${data.description}</p>
+                    <img src="http://openweathermap.org/img/w/${data.icon}.png" alt="Weather icon">
+                `;
+                document.getElementById("weather-info").innerHTML = weatherInfo;
+            })
+            .catch(error => console.error('Error fetching weather data:', error));
+        }
+        navigator.geolocation.getCurrentPosition(showPosition, function(error){
+            console.log(error);
+            showError(error);   
+        });
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    console.log("User denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    console.log("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    console.log("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    console.log("An unknown error occurred.");
+                    break;
+            }
+        }
+        // Function to show alert
+        function showAlert(message) {
+            alert(message);
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-container glass">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" />
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('production') }}">Production</a></li>
+                    <li><a href="{{ url_for('supply') }}">Supply Chain</a></li>
+                    <li><a href="{{ url_for('customer') }}">Customer Insights</a></li>
+                    <li><a href="#">Reports</a></li>
+                </ul>
+                <!-- Dropdown Menu -->
+                <div class="dropdown">
+                    <button class="profile-btn" onclick="toggleDropdown()">
+                        {% if profile %}
+                        <img src="{{ profile }}" class="profile-image" alt="P">
+                        {% else %}
+                        <p>No profile picture uploaded.</p>
+                        {% endif %}
+                    </button>
+                    <div id="dropdown-content" class="dropdown-content glass">
+                        <a href="{{ url_for('profile') }}">profile</a>
+                        <a href="{{ url_for('settings') }}">Settings</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="welcome-section">
+            <h1>Welcome, {{ session['name'] }}!</h1>
+            <p>Your Business's performance at a glance.</p>
+        </section>
+        <section id="weather-info" class="glass weather-section">
+        </section>
+        <section class="cards-section">
+            <div class="card glass">
+                <p>The FactoryIQ dashboard provides real-time insights into machine performance, production efficiency, and supply chain operations...</p>
+                <h2>View Production</h2>
+                <form action="{{url_for('production')}}">
+                <center><button class="card-button glass2">PRODUCTION</button></center>
+                </form>
+            </div>
+            <div class="card glass">
+                <p>The FactoryIQ dashboard provides real-time insights into machine performance, production efficiency, and supply chain operations...</p>
+                <h2>View Supply Chain</h2>
+                <form action="{{url_for('supply')}}">
+                <center><button class="card-button glass2">SUPPLY CHAIN</button></center>
+                </form>
+            </div>
+        </section>
+        <section class="cards-section">
+            <div class="card glass">
+                <p>The FactoryIQ dashboard provides real-time insights into machine performance, production efficiency, and supply chain operations...</p>
+                <h2>View Customer Insights</h2>
+                <form action="{{url_for('customer')}}">
+                <center><button class="card-button glass2">CUSTOMER INSIGHTS</button></center>
+                </form>
+            </div>
+            <div class="card glass">
+                <p>The FactoryIQ dashboard provides real-time insights into machine performance, production efficiency, and supply chain operations...</p>
+                <h2>View Reports</h2>
+                <form action="#">
+                <center><button class="card-button glass2">REPORTS</button></center>
+                </form>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-container glass">
+          <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p>Email: info@example.com</p>
+            <p>Phone: +123 456 7890</p>
+          </div>
+          <div class="footer-section">
+            <h3>Important Links</h3>
+            <ul>
+              <li><a href="{{ url_for('about') }}">About Us</a></li>
+              <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>
+              <li><a href="{{ url_for('terms') }}">Terms of Service</a></li>
+              <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Follow Us</h3>
+            <ul>
+              <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+              <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+              <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+              <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 FactoryIQ. All Rights Reserved.</p>
+        </div>
+      </footer>
+
+    {% if alert_message %}
+    <script>
+        showAlert("{{ alert_message }}");
+    </script>
+    {% endif %}
+    
+    <script>
+    <style>
+        /* Add media queries for mobile responsiveness */
+        
+    </style>
+
+
+```css
+
+```
+        function toggleDropdown() {
+            var dropdown = document.getElementById("dropdown-content");
+            dropdown.classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile-btn') && !event.target.matches('.profile-image')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+        function toggleMenu() {
+            var navLinks = document.getElementById("nav-links");
+            navLinks.classList.toggle("show");
+        }
+
+    </script>
+</body>
+</html>
+ 

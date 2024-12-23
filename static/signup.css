@@ -1,0 +1,20 @@
+.login-link{
+    text-decoration: none;
+    color: white
+}
+
+.signup-all {
+    margin-bottom: 5%;
+}
+
+.signup-content{
+    align-self: center;
+    padding: 15px;
+    margin: auto; 
+    width: 400px;
+    height: 616px;
+}
+
+.login-link:hover{
+    text-decoration: underline;
+}
